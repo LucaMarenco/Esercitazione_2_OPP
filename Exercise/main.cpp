@@ -30,21 +30,34 @@ public:
 	}
 	
 	
-	
+	// Operatore += tra due complessi
 	complex_number<T>& operator+=(const complex_number<T>& other) {
-		T rt = other.a; // Parte reale secondo numero
-		T it = other.b;   // Parte immaginaria secondo numero
-	    a += rt;
-		b += it;
+	    a += other.a;
+		b += other.b;
 		return *this;
 	}
 	
+	// Operatore + tra due complessi
 	complex_number<T> operator+(const complex_number<T>& other) const {
 		complex_number<T> ret = *this;
 		ret += other;
 		return ret;
 	}
+
+	// Operatore += tra complesso e T 
+	complex_number<T>& operator+=(const T& other) {
+        a += other;
+        return *this;
+	}
 	
+	// Operatore + tra complesso e T 
+	complex_number<T> operator+(const T& other) const {
+        complex_number<T> ret = *this;
+        ret += other;
+        return ret;
+	}
+	
+	// Operatore *= tra due complessi
 	complex_number<T>& operator*=(const complex_number<T>& other) {
         T rt = other.a; // Parte reale secondo numero
 		T it = other.b;   // Parte immaginaria secondo numero
@@ -55,12 +68,25 @@ public:
         return *this;
     }
 	
+	// Operatore * tra due complessi
 	complex_number<T> operator*(const complex_number<T>& other) const {
 		T rt = other.a; // Parte reale secondo numero
 		T it = other.b;   // Parte immaginaria secondo numero
 		T pr = (a*rt) - (b*it);
 		T pi = (a*it) + (b*rt);
 		return complex_number<T>(pr, pi);
+	}
+	
+	// Operatore *= tra complesso e T 
+	complex_number<T>& operator*=(const T& other) {
+        a = other*a;
+        b = other*b;
+        return *this;
+    }
+	
+	// Operatore * tra complesso e T 
+	complex_number<T> operator*(const T& other) const {
+		return complex_number<T>(other*a, other*b);
 	}
 };	
 
@@ -75,17 +101,31 @@ std::ostream& operator<<(std::ostream& os, const complex_number<T>& c) {
 };
 
 
+template <typename T>
+complex_number<T> operator+(const T& i, const complex_number<T>& r)
+{
+	return r + i ;
+}
+
+template <typename T>
+complex_number<T>
+operator*(const T& i, const complex_number<T>& r)
+{
+    return r * i;
+}
+
+
  int main(void) {
 
 	complex_number<float> c1(1.1f, 2.0f);
     complex_number<float> c2(3.0f, -4.3f);
-    
-    complex_number<float> c3 = c1 + c2;
+    float t = 3.0;
+    complex_number<float> c3 = t + c1 ;
     complex_number<float> c4 = c1 * c2;
     
     std::cout << "c1: " << c1 << std::endl;
     std::cout << "c2: " << c2 << std::endl;
-    std::cout << "c3 (c1 + c2): " << c3 << std::endl;
+    std::cout << "c3 (c1 + 3.0): " << c3 << std::endl;
     std::cout << "c4 (c1 * c2): " << c4 << std::endl;
     std::cout << "Coniugato di c1: " << c1.conju() << std::endl;
     std::cout << "Parte reale di c1: " << c1.real() << std::endl;
