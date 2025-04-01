@@ -9,7 +9,7 @@ class complex_number
 	
 public:
 	complex_number()  // Costruttore default
-		: a(0),b(0) {}
+		: a(0.0),b(0.0) {}
 	
 	complex_number(T real, T imm) // Costruttore user defined 
 		: a(real),b(imm) 
@@ -111,5 +111,3 @@ operator*(const T& i, const complex_number<T>& r)
 {
     return r * i;
 }
-
-
