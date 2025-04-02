@@ -91,10 +91,12 @@ public:
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const complex_number<T>& c) {
 	os << c.real();
-    if (c.imag() >= 0)
+    if (c.imag() >= 0){
         os << "+" << c.imag() << "i";
-    else
+	}
+    else {
         os << c.imag() << "i";
+	}
 	return os;
 };
 
